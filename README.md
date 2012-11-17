@@ -1,3 +1,1 @@
-= Marks
-
-This project rocks and uses MIT-LICENSE.
+# Marks [![Build Status](https://secure.travis-ci.org/ihara2525/marks.png?branch=master)](http://travis-ci.org/ihara2525/marks)
