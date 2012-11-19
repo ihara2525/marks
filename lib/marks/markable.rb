@@ -11,7 +11,7 @@ module Marks
             classified_mark = mark.to_s.classify
             raise ArgumentError unless types.map { |t| t.to_s.classify }.include?(classified_mark)
             klass = class_name.to_s.classify.constantize
-            klass.joins(:outgoing_marks).where('marks_marks.type = ? AND markable_type = ? AND markable_id = ?', mark.to_s.classify, self.class.base_class.to_s, self)
+            klass.joins(:outgoing_marks).where('marks_marks.mark_type = ? AND markable_type = ? AND markable_id = ?', mark.to_s.classify, self.class.base_class.to_s, self)
           end
         end
       end

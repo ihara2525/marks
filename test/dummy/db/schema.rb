@@ -18,10 +18,12 @@ ActiveRecord::Schema.define(:version => 20121116121923) do
     t.string   "marker_type"
     t.integer  "markable_id"
     t.string   "markable_type"
-    t.string   "type"
+    t.string   "mark_type"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
+
+  add_index "marks_marks", ["mark_type", "markable_type", "markable_id"], :name => "index_marks_marks_on_mark_type_and_markable_type_and_markable_id"
 
   create_table "replies", :force => true do |t|
     t.datetime "created_at", :null => false

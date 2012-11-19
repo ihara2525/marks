@@ -3,9 +3,9 @@ class CreateMarksMarks < ActiveRecord::Migration
     create_table :marks_marks do |t|
       t.references :marker, polymorphic: true
       t.references :markable, polymorphic: true
-      t.string :type
+      t.string :mark_type
       t.timestamps
     end
-    add_index :marks_marks, [:type, :markable_type, :markable_id]
+    add_index :marks_marks, [:mark_type, :markable_type, :markable_id]
   end
 end

@@ -11,7 +11,7 @@ module Marks
             classified_mark = mark.to_s.classify
             raise ArgumentError unless types.map { |t| t.to_s.classify }.include?(classified_mark)
             Marks::Mark.create do |c|
-              c.type = classified_mark
+              c.mark_type = classified_mark
               c.marker = self
               c.markable = markable
             end
@@ -20,7 +20,7 @@ module Marks
           define_method :'marks?' do |markable, mark|
             classified_mark = mark.to_s.classify
             raise ArgumentError unless types.map { |t| t.to_s.classify }.include?(classified_mark)
-            outgoing_marks.where(type: classified_mark, markable_type: markable.class.table_name.classify, markable_id: markable).any?
+            outgoing_marks.where(mark_type: classified_mark, markable_type: markable.class.table_name.classify, markable_id: markable).any?
           end
         end
       end
