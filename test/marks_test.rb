@@ -19,4 +19,10 @@ class MarksTest < ActiveSupport::TestCase
     assert_equal [@user, @user, @user], @reply.markers(:user, :nice)
     assert_raise(ArgumentError) { @reply.markers(:user, :unknown_mark) }
   end
+
+  test '#unmarks' do
+    3.times { @user.marks(@reply, :nice) }
+    @user.unmarks(@reply, :nice)
+    assert !@user.marks?(@reply, :nice)
+  end
 end
