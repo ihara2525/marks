@@ -26,7 +26,7 @@ module Marks
           define_method :'unmarks' do |markable, mark|
             classified_mark = mark.to_s.classify
             raise ArgumentError unless types.map { |t| t.to_s.classify }.include?(classified_mark)
-            outgoing_marks.where(mark_type: classified_mark, markable_type: markable.class.table_name.classify, markable_id: markable).delete_all
+            outgoing_marks.where(mark_type: classified_mark, markable_type: markable.class.table_name.classify, markable_id: markable).destroy_all
           end
         end
       end
