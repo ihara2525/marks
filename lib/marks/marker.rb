@@ -7,9 +7,10 @@ module Marks
         has_many :outgoing_marks, as: :marker, dependent: :destroy, class_name: 'Marks::Mark'
 
         class_eval do
-          define_method :'marks' do |markable, mark|
+          define_method :'marks' do |markable, mark, options = {}|
             classified_mark = mark.to_s.classify
             raise ArgumentError unless types.map { |t| t.to_s.classify }.include?(classified_mark)
+            return if options[:unique] && self.marks?(markable, mark)
             Marks::Mark.create do |c|
               c.mark_type = classified_mark
               c.marker = self
