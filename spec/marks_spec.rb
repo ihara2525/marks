@@ -56,6 +56,25 @@ describe 'Marks' do
     end
   end
 
+  describe '#markings' do
+    describe 'raising error' do
+      it 'raises error if the mark type is unknown' do
+        proc { user.markings(Reply, :unknown_mark) }.must_raise ArgumentError
+      end
+    end
+
+    let(:another_reply) { Reply.create! }
+
+    before do
+      user.marks(reply, type)
+      user.marks(another_reply, type)
+    end
+
+    it 'returns all targets with the type' do
+      user.markings(Reply, type).map(&:markable_id).must_equal [reply.id, another_reply.id]
+    end
+  end
+
   describe '#markers' do
     describe 'raising error' do
       it 'raises error if the mark type is unknown' do
