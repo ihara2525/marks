@@ -93,4 +93,26 @@ describe 'Marks' do
       reply.markers(:user, type).must_equal [user, user, another_user]
     end
   end
+
+  describe '#marked_by' do
+    describe 'raising error' do
+      it 'raises error if the mark type is unknown' do
+        proc { user.marks?(reply, :unknown_mark) }.must_raise ArgumentError
+      end
+    end
+
+    describe 'when the user marks the target with the type' do
+      before { user.marks(reply, type) }
+
+      it 'returns true' do
+        reply.marked_by?(user, type).must_equal true
+      end
+    end
+
+    describe 'when the user does not mark the target with the type' do
+      it 'returns false' do
+        reply.marked_by?(user, type).must_equal false
+      end
+    end
+  end
 end
