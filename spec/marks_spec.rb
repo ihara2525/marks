@@ -114,5 +114,11 @@ describe 'Marks' do
         reply.marked_by?(user, type).must_equal false
       end
     end
+
+    describe 'when nil is passed as marker' do
+      it 'returns false' do
+        reply.marked_by?(nil, type).must_equal false
+      end
+    end
   end
 end
