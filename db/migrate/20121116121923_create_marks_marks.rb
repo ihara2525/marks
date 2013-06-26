@@ -6,6 +6,6 @@ class CreateMarksMarks < ActiveRecord::Migration
       t.string :mark_type
       t.timestamps
     end
-    add_index :marks_marks, [:mark_type, :markable_type, :markable_id]
+    add_index :marks_marks, [:mark_type, :markable_type, :markable_id], name: 'index_marks_marks_on_mk_type_and_mkbl_type_and_mkbl_id'
   end
 end
