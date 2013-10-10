@@ -21,19 +21,29 @@ module Marks
           define_method :'marks?' do |markable, mark|
             classified_mark = mark.to_s.classify
             raise ArgumentError unless types.map { |t| t.to_s.classify }.include?(classified_mark)
-            outgoing_marks.where(mark_type: classified_mark, markable_type: markable.class.table_name.classify, markable_id: markable).any?
+            if markable.has_attribute?('type')
+              markable_type = markable.class.base_class.name
+            else
+              markable_type = markable.class.name
+            end
+            outgoing_marks.where(mark_type: classified_mark, markable_type: markable_type, markable_id: markable).any?
           end
 
           define_method :'unmarks' do |markable, mark|
             classified_mark = mark.to_s.classify
             raise ArgumentError unless types.map { |t| t.to_s.classify }.include?(classified_mark)
-            outgoing_marks.where(mark_type: classified_mark, markable_type: markable.class.table_name.classify, markable_id: markable).destroy_all
+            if markable.has_attribute?('type')
+              markable_type = markable.class.base_class.name
+            else
+              markable_type = markable.class.name
+            end
+            outgoing_marks.where(mark_type: classified_mark, markable_type: markable_type, markable_id: markable).destroy_all
           end
 
           define_method :'markings' do |markable_class, mark|
             classified_mark = mark.to_s.classify
             raise ArgumentError unless types.map { |t| t.to_s.classify }.include?(classified_mark)
-            outgoing_marks.where(mark_type: classified_mark, markable_type: markable_class.to_s.constantize.table_name.classify)
+            outgoing_marks.where(mark_type: classified_mark, markable_type: markable_class.name)
           end
         end
       end
