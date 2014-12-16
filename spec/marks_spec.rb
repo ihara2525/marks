@@ -109,6 +109,16 @@ describe 'Marks' do
       end
     end
 
+    describe 'when the other user marks the target with the type' do
+      let(:other_user) { User.create! }
+
+      before { other_user.marks(reply, type) }
+
+      it 'returns false' do
+        reply.marked_by?(user, type).must_equal false
+      end
+    end
+
     describe 'when the user does not mark the target with the type' do
       it 'returns false' do
         reply.marked_by?(user, type).must_equal false
