@@ -30,7 +30,7 @@ module Marks
             end
 
             klass = marker.class.table_name.classify.constantize
-            klass.joins(:outgoing_marks).where('marks_marks.mark_type = ? AND markable_type = ? AND markable_id = ?', mark.to_s.classify, self.class.base_class.to_s, self).any?
+            klass.joins(:outgoing_marks).where('marks_marks.mark_type = ? AND markable_type = ? AND markable_id = ?', mark.to_s.classify, self.class.base_class.to_s, self).include?(marker)
           end
         end
       end
